@@ -1,0 +1,44 @@
+var background = new Path.Rectangle(view.bounds);
+background.fillColor = 'white';
+
+tool.minDistance = 10;
+tool.maxDistance = 45;
+
+var path;
+
+
+$('.cb').click(function(){
+	var pathcolour = $(this).attr("id");
+	$('#pathcolour').html(pathcolour);
+	$(this).toggleClass('active');
+});
+
+function onMouseDown(event) {
+	
+	path = new Path();
+	pathcolour = $('#pathcolour').html();
+	path.fillColor = "#"+pathcolour;
+
+	path.add(event.point);
+	path.blendMode = 'multiply';
+}
+
+function onMouseDrag(event) {
+	var step = event.delta / 2;
+	step.angle += 90;
+	
+	var top = event.middlePoint + step;
+	var bottom = event.middlePoint - step;
+	
+	path.add(top);
+	path.insert(0, bottom);
+	path.smooth();
+	path.blendMode = 'multiply';
+}
+
+function onMouseUp(event) {
+	path.add(event.point);
+	path.closed = true;
+	path.smooth();
+	path.blendMode = 'multiply';
+}
