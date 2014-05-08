@@ -4,4 +4,4 @@ A super cool and simple microsite which replicates a paint palette. It also allo
 
 ## Demo
 
-http://colour.petertait.com
+http://clr.tait.io
